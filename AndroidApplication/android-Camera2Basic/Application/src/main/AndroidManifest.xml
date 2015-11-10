@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
  Copyright 2014 The Android Open Source Project
 
@@ -14,26 +14,32 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.camera2basic">
+    package="com.example.android.camera2basic" >
 
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <application android:allowBackup="true"
-        android:label="@string/app_name"
+    <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/MaterialTheme">
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat" >
 
-        <activity android:name=".CameraActivity"
-                  android:label="@string/app_name">
+        <activity
+            android:name=".ItemsListActivity"
+            android:label="@string/title_activity_items_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/app_name" >
+
         </activity>
     </application>
 
