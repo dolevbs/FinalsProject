@@ -1,0 +1,48 @@
+ant:
+<ant>
+  <mkdir dir="C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_redistribution" />
+  <mkdir dir="C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_testing" />
+  <mkdir dir="C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_redistribution_files_only" />
+</ant>
+mcc -C -o DateReader -W WinMain:DateReader -T link:exe -d C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_testing -v C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\predictDateFromImage.m -a C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\MyNetworkThetas.mat 
+Compiler version: 6.0 (R2015a)
+Dependency analysis by REQUIREMENTS.
+[Warning: Adding path
+"C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion" to
+Compiler path instance.] 
+Parsing file "C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\predictDateFromImage.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 24 temporary MEX authorization files.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae031975_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae029700_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae030560_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae02845_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae011941_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae016192_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae05512_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae019801_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae015645_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae04762_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae09338_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae030149_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae029521_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae021463_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae024182_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae021236_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae011673_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae021953_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae021426_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae023189_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae022517_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae011559_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae031565_6880.auth'.
+Removing: 'C:\Users\BARDA-~1\AppData\Local\Temp\mathworks_tmp_01ae018075_6880.auth'.
+Generating file "C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_testing\readme.txt".
+Packaging...
+Adding custom icon C:\Program Files\MATLAB\R2015a\toolbox\compiler\Resources\default_icon.ico to C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_testing\DateReader.exe.
+Attempting to embed the CTF archive into the application C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_testing\DateReader.exe.
+Finished embedding CTF archive. Deleting the external CTF archive.
+Creating the bundle...
+Web based installer created at C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\DateReader\for_redistribution\MyAppInstaller_web.exe.
+Packaging complete.
+Elapsed packaging time was: 3 minutes and 12 seconds.
