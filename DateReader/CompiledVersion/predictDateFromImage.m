@@ -1,8 +1,8 @@
-function predictDateFromImage(fileName)
+function predictDateFromImage(ImageFilePath)
 %% Initialization
 close all; clc
 
-I=imread(fileName);
+I=imread(ImageFilePath);
 [s,objects]=getImageObjects(I);
 myX=objects;
 myXrow=myX(:,:);
@@ -37,6 +37,9 @@ for i = 1:size(myXrow,1)
 end
 
 disp(dateString);
+fileID = fopen('output.txt','w');
+fprintf(fileID, '%s', dateString);
+fclose(fileID);
 
 end
 
