@@ -13,4 +13,12 @@
         android:id="@+id/AddItemButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemsListView"
+        android:choiceMode="multipleChoice"
+        android:entries="@color/button_material_dark"
+        android:fastScrollAlwaysVisible="true" />
 </RelativeLayout>
