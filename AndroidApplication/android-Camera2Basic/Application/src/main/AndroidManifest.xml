@@ -18,6 +18,7 @@
     package="com.example.android.camera2basic" >
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -27,19 +28,25 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat" >
-
         <activity
             android:name=".ItemsListActivity"
             android:label="@string/title_activity_items_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".CameraActivity"
             android:label="@string/app_name" >
 
+        </activity>
+
+        <activity
+            android:name=".AddItemActicity"
+            android:label="@string/title_activity_add_item_acticity" >
         </activity>
     </application>
 

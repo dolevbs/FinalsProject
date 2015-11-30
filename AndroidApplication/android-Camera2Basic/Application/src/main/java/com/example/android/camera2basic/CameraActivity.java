@@ -17,7 +17,9 @@
 package com.example.android.camera2basic;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 public class CameraActivity extends Activity {
 
@@ -25,6 +27,7 @@ public class CameraActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+        Log.i("CameraActivity", "savedStata" + savedInstanceState);
         if (null == savedInstanceState) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
@@ -32,4 +35,4 @@ public class CameraActivity extends Activity {
         }
     }
 
-}
+   }

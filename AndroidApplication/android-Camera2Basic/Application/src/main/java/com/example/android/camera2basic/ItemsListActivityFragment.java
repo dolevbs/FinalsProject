@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -30,29 +32,93 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         ListView bla =(ListView) view.findViewById(R.id.itemsListView);
         // 1. pass context and data to the custom adapter
-        MyArrayAdapter adapter = new MyArrayAdapter(this.getContext(), generateData());
+        MyArrayAdapter adapter = new MyArrayAdapter(this.getActivity().getApplicationContext(), generateData());
 
         bla.setAdapter(adapter);
         view.findViewById(R.id.AddItemButton).setOnClickListener(this);
     }
 
     private ArrayList<Item> generateData(){
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(new Item("Item 1","First Item on the list"));
-        items.add(new Item("Item 2", "Second Item on the list"));
-        items.add(new Item("Item 3", "Third Item on the list"));
-
-        return items;
+       return Utils.parseItemsList("[\n" +
+                "  {\n" +
+                "    \"id\": 3337,\n" +
+                "    \"name\": \"enim\",\n" +
+                "    \"expirationDate\": \"31/12/15\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 2212,\n" +
+                "    \"name\": \"eiusmod\",\n" +
+                "    \"expirationDate\": \"03/08/16\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 3068,\n" +
+                "    \"name\": \"reprehenderit\",\n" +
+                "    \"expirationDate\": \"07/03/16\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 1290,\n" +
+                "    \"name\": \"commodo\",\n" +
+                "    \"expirationDate\": \"16/07/15\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 3422,\n" +
+                "    \"name\": \"aliquip\",\n" +
+                "    \"expirationDate\": \"09/05/15\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 1514,\n" +
+                "    \"name\": \"sint\",\n" +
+                "    \"expirationDate\": \"12/05/16\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 3565,\n" +
+                "    \"name\": \"consequat\",\n" +
+                "    \"expirationDate\": \"17/07/16\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 1938,\n" +
+                "    \"name\": \"quis\",\n" +
+                "    \"expirationDate\": \"01/12/15\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 1334,\n" +
+                "    \"name\": \"consectetur\",\n" +
+                "    \"expirationDate\": \"26/11/15\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 1038,\n" +
+                "    \"name\": \"reprehenderit\",\n" +
+                "    \"expirationDate\": \"29/12/15\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 2561,\n" +
+                "    \"name\": \"culpa\",\n" +
+                "    \"expirationDate\": \"24/11/15\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 2440,\n" +
+                "    \"name\": \"sunt\",\n" +
+                "    \"expirationDate\": \"19/02/15\"\n" +
+                "  },\n" +
+                "]");
     }
 
     @Override
     public void onClick(View clickedView) {
         switch (clickedView.getId()) {
             case R.id.AddItemButton: {
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentHolder, AddItemFragment.newInstance())
-                        .commit();
+                try {
+                    //start the scanning activity from the com.google.zxing.client.android.SCAN intent
+                    Intent intent;
+                    intent = new Intent(this.getActivity(), AddItemActicity.class);
+                    startActivity(intent);
+                } catch (ActivityNotFoundException anfe) {}
+
+//                getFragmentManager().beginTransaction()
+//                        .replace(R.id.fragmentHolder, AddItemFragment.newInstance())
+//                        .commit();
             }
         }
     }
 }
+

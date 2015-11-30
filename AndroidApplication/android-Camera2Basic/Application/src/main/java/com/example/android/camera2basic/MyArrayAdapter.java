@@ -1,8 +1,10 @@
 package com.example.android.camera2basic;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,11 +42,19 @@ public class MyArrayAdapter extends ArrayAdapter<Item> {
             TextView valueView = (TextView) rowView.findViewById(R.id.value);
 
             // 4. Set the text for textView
-            labelView.setText(itemsArrayList.get(position).getTitle());
-            valueView.setText(itemsArrayList.get(position).getDescription());
+            Item curItem = itemsArrayList.get(position);
+            Calendar today = Calendar.getInstance();
+            Log.i("as", today.toString());
+            if ( curItem.getExpirationDate().before(today.getTime())  ) {
+                rowView.setBackgroundColor(0xFFDD0029);
+            }
+            labelView.setText(curItem.getTitle());
+            valueView.setText(curItem.getDescription());
 
             // 5. retrn rowView
             return rowView;
         }
+
+
 
 }

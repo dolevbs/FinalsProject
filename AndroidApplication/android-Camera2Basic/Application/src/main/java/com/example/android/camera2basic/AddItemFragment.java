@@ -6,17 +6,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 
 public class AddItemFragment extends Fragment  implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
-
+    private ItemRegister mItemToRegister;
     public AddItemFragment() {
         // Required empty public constructor
     }
@@ -24,6 +28,7 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mItemToRegister = new ItemRegister();
     }
 
     @Override
@@ -60,24 +65,55 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
 
         view.findViewById(R.id.TakeDateImageButton).setOnClickListener(this);
 
+        Button addItemButton = (Button) view.findViewById(R.id.finalAddItemButton);
+        addItemButton.setOnClickListener(this);
+        addItemButton.setEnabled(false);
+
     }
 
     public void onClick(View clickedView) {
 //        showToast("" + clickedView.getId());
+        Log.i("a", "1");
+        Log.i("a", "" + clickedView.getId());
         switch (clickedView.getId()) {
             case R.id.TakeDateImageButton: {
                 try {
+                    Log.i("a", "2");
                     //start the scanning activity from the com.google.zxing.client.android.SCAN intent
                     Intent intent;
                     intent = new Intent(this.getActivity(), CameraActivity.class);
-                    startActivity(intent);
+                    Log.i("a", "3");
+                    startActivityForResult(intent, 1);
+                    Log.i("a", "4");
                 } catch (ActivityNotFoundException anfe) {}
                 break;
 
             }
+            case R.id.finalAddItemButton: {
+                //TODO: add to db
+                Intent intent=new Intent();
+                intent.putExtra("item", mItemToRegister.toString());
+                getActivity().setResult(3, intent);
+                getActivity().finish();//finishing activity
+                break;
+            }
         }
     }
 
+    private void checkAndChangeAddItemButtonState(){
+        if ( mItemToRegister.getBarcode() != null && mItemToRegister.getExpirationDateFile() != null ) {
+            final Activity activity = getActivity();
+            if (activity != null) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Button addItemButton = (Button) activity.findViewById(R.id.finalAddItemButton);
+                        addItemButton.setEnabled(true);
+                    }
+                });
+            }
+        }
+    }
 
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 
@@ -107,11 +143,12 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
     }
     //on ActivityResult method
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0) {
+        if (requestCode == 0 && intent != null) {
 
             //get the extras that are returned from the intent
             final String contents = intent.getStringExtra("SCAN_RESULT");
             String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+            mItemToRegister.setBarcode(contents);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -122,6 +159,13 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
             showToast("Content:" + contents + " Format:" + format);
 
         }
+        if (requestCode == 1 ) {
+            Log.i("AddItemFragment", "return from camera");
+            final String filePath = intent.getStringExtra("FILEPath");
+            mItemToRegister.setExpirationDateFile(new File(filePath)  );
+
+        }
+        checkAndChangeAddItemButtonState();
     }
 
     public static Fragment newInstance() {

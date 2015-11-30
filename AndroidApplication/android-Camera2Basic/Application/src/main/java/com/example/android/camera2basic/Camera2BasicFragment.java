@@ -766,6 +766,10 @@ public class Camera2BasicFragment extends Fragment
                     showToast("Saved: " + mFile);
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
+                    Intent intent=new Intent();
+                    intent.putExtra("FILEPath", mFile.getAbsolutePath());
+                    activity.setResult(2, intent);
+                    activity.finish();//finishing activity
                 }
             };
 
@@ -858,6 +862,7 @@ public class Camera2BasicFragment extends Fragment
                     }
                 }
             }
+
         }
 
     }
