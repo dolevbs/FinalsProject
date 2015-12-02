@@ -93,6 +93,7 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
                 //TODO: add to db
                 Intent intent=new Intent();
                 intent.putExtra("item", mItemToRegister.toString());
+                Log.i("AddItemFragment", mItemToRegister.toString());
                 getActivity().setResult(3, intent);
                 getActivity().finish();//finishing activity
                 break;
@@ -162,7 +163,9 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
         if (requestCode == 1 ) {
             Log.i("AddItemFragment", "return from camera");
             final String filePath = intent.getStringExtra("FILEPath");
-            mItemToRegister.setExpirationDateFile(new File(filePath)  );
+            if ( filePath != null ) {
+                mItemToRegister.setExpirationDateFile(new File(filePath));
+            }
 
         }
         checkAndChangeAddItemButtonState();

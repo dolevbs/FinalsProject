@@ -18,8 +18,8 @@
     <string name="description_info">Info</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
-    <string name="title_activity_add_item">AddItemActivity</string>
-    <string name="title_activity_items_list">ItemsListActivity</string>
+    <string name="title_activity_add_item">Add Item</string>
+    <string name="title_activity_items_list">Your supply</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -113,5 +113,5 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_add_item_acticity">AddItemActicity</string>
+    <string name="title_activity_add_item_acticity">Add Item</string>
 </resources>

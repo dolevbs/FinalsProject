@@ -18,11 +18,11 @@
 
     <!-- Activity themes -->
 
-    <style name="Theme.Base" parent="android:Theme.Light" />
+    <!--<style name="Theme.Base" parent="android:Theme.Light" />-->
 
-    <style name="Theme.Sample" parent="Theme.Base" />
+    <!--<style name="Theme.Sample" parent="Theme.Base" />-->
 
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar" />
+    <!--<style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar" />-->
     <!-- Widget styling -->
 
     <style name="Widget" />
@@ -40,3 +40,4 @@
     </style>
 
 </resources>
+
