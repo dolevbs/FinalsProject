@@ -30,7 +30,7 @@ bw = ~im2bw(I,level);
 %bw = imopen(bw,se);
 %imshow(bw)
 
-se = strel('disk',10);
+se = strel('disk',4);
 bw = imclose(bw,se);
 %imshow(bw)
 

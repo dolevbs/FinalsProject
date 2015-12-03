@@ -1,0 +1,9 @@
+ant:
+<ant>
+  <mkdir dir="C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\FinalDateReader\for_redistribution" />
+  <mkdir dir="C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\FinalDateReader\for_testing" />
+</ant>
+mcc -C -o FinalDateReader -W WinMain:FinalDateReader -T link:exe -d C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\FinalDateReader\for_testing -v C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\predictDateFromImage.m -a C:\Projects\FinalProjectGit\FinalsProject\DateReader\CompiledVersion\MyNetworkThetas.mat 
+Test checkout of feature 'Compiler' failed.
+
+mcc failed.
