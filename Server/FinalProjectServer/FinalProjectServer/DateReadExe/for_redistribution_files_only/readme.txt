@@ -33,8 +33,8 @@ NOTE: You will need administrator rights to run MCRInstaller.
 
 Files to package for Standalone 
 ================================
--DateReadExe.ctf (component technology file)
--DateReadExe.exe
+-FinalDatereadExe.ctf (component technology file)
+-FinalDatereadExe.exe
 -MCRInstaller.exe 
    -if end users are unable to download the MATLAB runtime using the above  
     link, include it when building your component by clicking 
