@@ -34,9 +34,14 @@ import java.util.Date;
  */
 public class Utils {
 
-    public static String GET_ITEMS_LIST = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp?action=getUserList&id=1";
-    public static String GET_BARCODE = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp?action=getProduct&barcode=%s";
-    public static String POST_ITEM = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp";
+//    public static String GET_ITEMS_LIST = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp?action=getUserList&id=1";
+//    public static String GET_BARCODE = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp?action=getProduct&barcode=%s";
+//    public static String POST_ITEM = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp";
+
+    private static String SERVER_TO_CONNECT = "192.168.1.23:8080";
+    public static String GET_ITEMS_LIST = "http://" +  SERVER_TO_CONNECT +"/FinalProjectServer/newjsp.jsp?action=getUserList&id=1";
+    public static String GET_BARCODE = "http://" +  SERVER_TO_CONNECT +"/FinalProjectServer/newjsp.jsp?action=getProduct&barcode=%s";
+    public static String POST_ITEM = "http://" +  SERVER_TO_CONNECT +"/FinalProjectServer/newjsp.jsp";
 
     private static Date stringToDate(String dateToConvert) {
         String dtStart = "2010-10-15T09:27:37Z";
