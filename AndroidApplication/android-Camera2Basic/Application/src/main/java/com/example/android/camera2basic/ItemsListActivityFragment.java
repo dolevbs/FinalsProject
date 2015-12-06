@@ -84,10 +84,9 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
 
         }
         protected void onPostExecute(Object result) {
-            String bla = (String) result;
 
             Log.d("AAAAAAAAA", "postExcute");
-            Log.d("AAAAAAAAA", bla);
+            Log.d("AAAAAAAAA", "" + result);
             generateData();
 
         }
