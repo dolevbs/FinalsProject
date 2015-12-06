@@ -149,7 +149,7 @@ public class Utils {
             DataOutputStream wr = new DataOutputStream (
                     httpUrlConnection.getOutputStream ());
             String fileData = fileToBase64("/sdcard/finalpic2.jpg");
-            String DataToSend = "action=addUserProduct&id=1&barcode=" + URLEncoder.encode("barcode", "UTF-8") + "&image=" + fileData;
+            String DataToSend = "action=addUserProduct&id=1&barcode=" + URLEncoder.encode("barcode", "UTF-8") + "&image=" + URLEncoder.encode(fileData, "UTF-8");
 
             wr.writeBytes(DataToSend);
             wr.flush();
