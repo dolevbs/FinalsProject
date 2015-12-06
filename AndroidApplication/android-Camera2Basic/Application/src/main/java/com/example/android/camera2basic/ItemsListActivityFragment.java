@@ -120,7 +120,8 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
                     //start the scanning activity from the com.google.zxing.client.android.SCAN intent
                     Intent intent;
                     intent = new Intent(this.getActivity(), AddItemActicity.class);
-                    startActivity(intent);
+                    //startActivityForResult();
+                    startActivityForResult(intent,3);
                 } catch (ActivityNotFoundException anfe) {}
 
 //                getFragmentManager().beginTransaction()

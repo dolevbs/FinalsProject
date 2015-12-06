@@ -135,7 +135,8 @@ public class Utils {
 
         HttpURLConnection httpUrlConnection = null;
         StringBuffer temp = new StringBuffer();
-        Log.d("AAAAAAA", barcode);
+        Log.d("AAAAAAAbbbbbbb", barcode);
+        Log.d("AAAAAAAbbbbbbb", sourceFileUri);
         try {
 
             URL url = new URL(POST_ITEM);

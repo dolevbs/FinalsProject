@@ -27,22 +27,23 @@ public class Manager {
         dbManager = new DbManager();
     }
 
-    public java.util.Date readExpirationDate(BufferedImage expirationDateImage) throws Exception {
+    public java.util.Date readExpirationDate(ByteArrayInputStream expirationDateImage) throws Exception {
         File outputfile = new File("tmp.jpg");
-//        System.out.println(outputfile.getAbsolutePath());
-//        outputfile = null;
-//        InputStream in = expirationDateImage;
-//        OutputStream out = new FileOutputStream("tmp.jpg");
-//
-//        // Transfer bytes from in to out
-//        byte[] buf = new byte[1024];
-//        int len;
-//        while ((len = in.read(buf)) > 0) {
-//            out.write(buf, 0, len);
-//        }
-//        in.close();
-//        out.close();
-        ImageIO.write(expirationDateImage, "jpg", outputfile);
+        //BufferedImage
+        System.out.println(outputfile.getAbsolutePath());
+        outputfile = null;
+        InputStream in = expirationDateImage;
+        OutputStream out = new FileOutputStream("tmp.jpg");
+
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
+//        ImageIO.write(expirationDateImage, "jpg", outputfile);
         String date = runDataReader();
         DateFormat format = new SimpleDateFormat("dd/MM/yy");
         java.util.Date expirationDate = format.parse(date);
@@ -62,8 +63,8 @@ public class Manager {
     }
 
     public boolean AddUserProduct(String user, String barcode, String imgBuffer) throws Exception {
-        //ByteArrayInputStream expirationDateImage = stringToImage(imgBuffer);
-        BufferedImage expirationDateImage =  ImageIO.read(new File("C:\\CodeBase\\FinalsProject\\Server\\FinalProjectServer\\FinalProjectServer\\DateReadExe\\for_redistribution_files_only\\finalpic2.jpg"));
+        ByteArrayInputStream expirationDateImage = stringToImage(imgBuffer);
+//        BufferedImage expirationDateImage =  ImageIO.read(new File("C:\\CodeBase\\FinalsProject\\Server\\FinalProjectServer\\FinalProjectServer\\DateReadExe\\for_redistribution_files_only\\finalpic2.jpg"));
         int userId = Integer.parseInt(user);
         if (dbManager.verifyUserExist(userId)) {
             java.util.Date expirationDate = readExpirationDate(expirationDateImage);
