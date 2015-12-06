@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,68 +40,10 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
     }
 
     private ArrayList<Item> generateData(){
-       return Utils.parseItemsList("[\n" +
-                "  {\n" +
-                "    \"id\": 3337,\n" +
-                "    \"name\": \"enim\",\n" +
-                "    \"expirationDate\": \"31/12/15\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 2212,\n" +
-                "    \"name\": \"eiusmod\",\n" +
-                "    \"expirationDate\": \"03/08/16\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 3068,\n" +
-                "    \"name\": \"reprehenderit\",\n" +
-                "    \"expirationDate\": \"07/03/16\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 1290,\n" +
-                "    \"name\": \"commodo\",\n" +
-                "    \"expirationDate\": \"16/07/15\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 3422,\n" +
-                "    \"name\": \"aliquip\",\n" +
-                "    \"expirationDate\": \"09/05/15\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 1514,\n" +
-                "    \"name\": \"sint\",\n" +
-                "    \"expirationDate\": \"12/05/16\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 3565,\n" +
-                "    \"name\": \"consequat\",\n" +
-                "    \"expirationDate\": \"17/07/16\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 1938,\n" +
-                "    \"name\": \"quis\",\n" +
-                "    \"expirationDate\": \"01/12/15\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 1334,\n" +
-                "    \"name\": \"consectetur\",\n" +
-                "    \"expirationDate\": \"26/11/15\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 1038,\n" +
-                "    \"name\": \"reprehenderit\",\n" +
-                "    \"expirationDate\": \"29/12/15\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 2561,\n" +
-                "    \"name\": \"culpa\",\n" +
-                "    \"expirationDate\": \"24/11/15\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"id\": 2440,\n" +
-                "    \"name\": \"sunt\",\n" +
-                "    \"expirationDate\": \"19/02/15\"\n" +
-                "  },\n" +
-                "]");
+        String balbla = Utils.getDataFromUrl("http://10.0.0.1:8080/FinalProjectServer/newjsp.jsp?action=getUserList&id=1");
+                //"[   {     \"id\": \"123\",     \"name\": \"קוטג תנובה 5%\",     \"expirationDate\": \"12/12/12\"   },   {     \"id\": \"432\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"05/12/15\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 27%\",     \"expirationDate\": \"28/12/15\"   },   {     \"id\": \"1233\",     \"name\": \"נוטלה\",     \"expirationDate\": \"30/12/16\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 28%\",     \"expirationDate\": \"28/11/15\"   },   {     \"id\": \"434\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"10/12/15\"   } ] "
+Log.d("camera2basic", balbla);
+       return Utils.parseItemsList(balbla.replaceAll("(?m)^[ \t]*\r?\n", "").trim());
     }
 
     @Override

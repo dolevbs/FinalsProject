@@ -61,7 +61,7 @@ public class Utils {
         HttpURLConnection urlConnection = null;
         StringBuffer temp = new StringBuffer();
         try {
-            url = new URL("http://www.mysite.se/index.asp?data=99");
+            url = new URL(urlToGet);
 
             urlConnection = (HttpURLConnection) url
                     .openConnection();

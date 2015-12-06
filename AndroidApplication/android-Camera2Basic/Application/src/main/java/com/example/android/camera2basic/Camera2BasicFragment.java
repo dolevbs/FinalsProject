@@ -526,11 +526,11 @@ public class Camera2BasicFragment extends Fragment
     private void openCamera(int width, int height) {
 
 //        ContextCompat.checkSelfPermission()
-        /*if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
+        if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             requestCameraPermission();
             return;
-        }*/
+        }
         setUpCameraOutputs(width, height);
         configureTransform(width, height);
         Activity activity = getActivity();
