@@ -9,7 +9,7 @@
     } else if ("addUserProduct".equals(request.getParameter("action"))) {
         String id = (String) request.getParameter("id");
         String barcode = (String) request.getParameter("barcode");
-        String img =  (String) request.getAttribute("image");
+        String img =  (String) request.getParameter("image");
         out.print(manager.AddUserProduct(id, barcode, img));
     }
         

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -13,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
+import java.net.URI;
 
 
 public class AddItemFragment extends Fragment  implements View.OnClickListener {
@@ -90,7 +93,7 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
 
             }
             case R.id.finalAddItemButton: {
-                //TODO: add to db
+                new AddProductTask().execute();
                 Intent intent=new Intent();
                 intent.putExtra("item", mItemToRegister.toString());
                 Log.i("AddItemFragment", mItemToRegister.toString());
@@ -144,12 +147,16 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
     }
     //on ActivityResult method
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == Crop.REQUEST_CROP && resultCode == 0) {
+            showToast("Image Croped");
+        }
         if (requestCode == 0 && intent != null) {
 
             //get the extras that are returned from the intent
             final String contents = intent.getStringExtra("SCAN_RESULT");
             String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
             mItemToRegister.setBarcode(contents);
+            new GetProductName().execute(new String[]{contents});
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -157,20 +164,57 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
                     barCodeNumberTextView.setText(contents);
                 }
             });
+
             showToast("Content:" + contents + " Format:" + format);
 
         }
         if (requestCode == 1 ) {
             Log.i("AddItemFragment", "return from camera");
             final String filePath = intent.getStringExtra("FILEPath");
+            Uri inputFileURi = Uri.fromFile(new File(filePath));
+            Crop.of(inputFileURi, inputFileURi).start(getActivity());
+            //Crop.of(inputFileURi , inputFileURi).asSquare().start(getActivity());
             if ( filePath != null ) {
                 mItemToRegister.setExpirationDateFile(new File(filePath));
             }
 
         }
+
         checkAndChangeAddItemButtonState();
     }
 
+    private class GetProductName extends AsyncTask {
+
+        protected Object doInBackground(Object[] barcodes) {
+            Log.d("AAAAAAAAAAAAAAAAAAAA", "doInBackground");
+
+            String balbla = Utils.getDataFromUrl(String.format(Utils.GET_BARCODE, barcodes[0] ));
+            //"[   {     \"id\": \"123\",     \"name\": \"קוטג תנובה 5%\",     \"expirationDate\": \"12/12/12\"   },   {     \"id\": \"432\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"05/12/15\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 27%\",     \"expirationDate\": \"28/12/15\"   },   {     \"id\": \"1233\",     \"name\": \"נוטלה\",     \"expirationDate\": \"30/12/16\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 28%\",     \"expirationDate\": \"28/11/15\"   },   {     \"id\": \"434\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"10/12/15\"   } ] "
+            Log.d("AAAAAAAAAAAAAAA", balbla);
+            return balbla;
+        }
+
+        protected void onPostExecute(Object result) {
+            String bla = (String) result;
+
+            Log.d("AAAAAAAAA", "postExcute");
+            Log.d("AAAAAAAAA", bla);
+            bla = bla.replaceAll("(?m)^[ \t]*\r?\n", "").trim();
+            TextView barCodeNumberTextView = (TextView) getView().findViewById(R.id.BarCodeNumberTextView);
+            barCodeNumberTextView.setText(bla);
+
+        }
+
+    }
+
+    private class AddProductTask extends AsyncTask {
+
+        protected Object doInBackground(Object[] barcodes) {
+
+            return Utils.addProduct(mItemToRegister.getBarcode(), mItemToRegister.getExpirationDateFile().getAbsolutePath());
+
+        }
+    }
     public static Fragment newInstance() {
         return new AddItemFragment();
     }

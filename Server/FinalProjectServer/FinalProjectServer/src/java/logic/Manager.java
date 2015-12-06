@@ -5,8 +5,11 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,9 +27,20 @@ public class Manager {
         dbManager = new DbManager();
     }
 
-    public java.util.Date readExpirationDate(BufferedImage expirationDateImage) throws Exception {
-        File outputfile = new File("tmp.jpg");
-        ImageIO.write(expirationDateImage, "jpg", outputfile);
+    public java.util.Date readExpirationDate(ByteArrayInputStream expirationDateImage) throws Exception {
+        //File outputfile = new File("tmp.jpg");
+        InputStream in = expirationDateImage;
+        OutputStream out = new FileOutputStream("tmp.jpg");
+
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
+                //ImageIO.write(expirationDateImage, "jpg", outputfile);
         String date = runDataReader();
         DateFormat format = new SimpleDateFormat("dd/MM/yy");
         java.util.Date expirationDate = format.parse(date);
@@ -46,7 +60,7 @@ public class Manager {
     }
 
     public boolean AddUserProduct(String user, String barcode, String imgBuffer) throws Exception {
-        BufferedImage expirationDateImage = stringToImage(imgBuffer);
+        ByteArrayInputStream expirationDateImage = stringToImage(imgBuffer);
         int userId = Integer.parseInt(user);
         if (dbManager.verifyUserExist(userId)) {
             java.util.Date expirationDate = readExpirationDate(expirationDateImage);
@@ -59,7 +73,7 @@ public class Manager {
 
     public String getProductName(String barcode) throws Exception {
         String productName = dbManager.getProductByBarcode(barcode);
-        return (productName == null ? productName : "Unknown product");
+        return (productName != null ? productName : "Unknown product");
     }
 
     public String runDataReader() {
@@ -105,19 +119,25 @@ public class Manager {
         return imageString;
     }
 
-    public BufferedImage stringToImage(String imageString) {
-        //string to ByteArrayInputStream
+    public ByteArrayInputStream stringToImage(String imageString) {
+        //string ByteArrayInputStream ByteArrayInputStream
         BufferedImage bImage = null;
-        BASE64Decoder b64dec = new BASE64Decoder();
+        BASE64Decoder b64dec = new BASE64Decoder();      
+        System.err.println("the img");
+        System.out.println(imageString);
+        //System.err.println(imageString);
+        ByteArrayInputStream bais = null;
         try {
             byte[] output = b64dec.decodeBuffer(imageString);
-            ByteArrayInputStream bais = new ByteArrayInputStream(output);
-            bImage = ImageIO.read(bais);
+            bais = new ByteArrayInputStream(output);
+            //bImage = ImageIO.read(bais);
         } catch (IOException e) {
             System.err.println("Error");
+            System.err.println(e);
+            e.printStackTrace();
         }
-
-        return bImage;
+        //System.out.println(bImage);
+        return bais;
     }
 
 }

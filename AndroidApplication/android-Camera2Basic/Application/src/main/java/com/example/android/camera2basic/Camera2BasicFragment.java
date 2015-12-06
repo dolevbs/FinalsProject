@@ -90,6 +90,7 @@ public class Camera2BasicFragment extends Fragment
      */
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     private static final int REQUEST_CAMERA_PERMISSION = 1;
+    private static final int REQUEST_EXTERNAL_STORGE_PERMISSION = 2;
     private static final String FRAGMENT_DIALOG = "dialog";
 
     static {
@@ -451,7 +452,10 @@ public class Camera2BasicFragment extends Fragment
                 ErrorDialog.newInstance(getString(R.string.request_permission))
                         .show(getChildFragmentManager(), FRAGMENT_DIALOG);
             }
-        } else {
+        } if ( requestCode == REQUEST_EXTERNAL_STORGE_PERMISSION ) {
+            //nothing
+
+        }  else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
@@ -520,6 +524,15 @@ public class Camera2BasicFragment extends Fragment
         }
     }
 
+
+    private void requestExternalStoragePermission() {
+        if (FragmentCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            new ConfirmationDialog().show(getChildFragmentManager(), FRAGMENT_DIALOG);
+        } else {
+            FragmentCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_EXTERNAL_STORGE_PERMISSION);
+        }
+    }
     /**
      * Opens the camera specified by {@link Camera2BasicFragment#mCameraId}.
      */
@@ -529,6 +542,11 @@ public class Camera2BasicFragment extends Fragment
         if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             requestCameraPermission();
+            return;
+        }
+        if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestExternalStoragePermission();
             return;
         }
         setUpCameraOutputs(width, height);

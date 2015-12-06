@@ -3,6 +3,7 @@ package com.example.android.camera2basic;
 import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +14,16 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class ItemsListActivityFragment extends Fragment  implements View.OnClickListener {
-
+    ArrayList<Item> mItemsFromNetwork;
+    ListView mItemsListView;
     public ItemsListActivityFragment() {
+        mItemsFromNetwork = new ArrayList<>();
     }
 
     @Override
@@ -31,19 +35,40 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
+        this.generateData();
         ListView bla =(ListView) view.findViewById(R.id.itemsListView);
+        mItemsListView = bla;
         // 1. pass context and data to the custom adapter
-        MyArrayAdapter adapter = new MyArrayAdapter(this.getActivity().getApplicationContext(), generateData());
+        MyArrayAdapter adapter = new MyArrayAdapter(this.getActivity().getApplicationContext(), mItemsFromNetwork);
 
         bla.setAdapter(adapter);
         view.findViewById(R.id.AddItemButton).setOnClickListener(this);
     }
 
-    private ArrayList<Item> generateData(){
-        String balbla = Utils.getDataFromUrl("http://10.0.0.1:8080/FinalProjectServer/newjsp.jsp?action=getUserList&id=1");
-                //"[   {     \"id\": \"123\",     \"name\": \"קוטג תנובה 5%\",     \"expirationDate\": \"12/12/12\"   },   {     \"id\": \"432\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"05/12/15\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 27%\",     \"expirationDate\": \"28/12/15\"   },   {     \"id\": \"1233\",     \"name\": \"נוטלה\",     \"expirationDate\": \"30/12/16\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 28%\",     \"expirationDate\": \"28/11/15\"   },   {     \"id\": \"434\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"10/12/15\"   } ] "
-Log.d("camera2basic", balbla);
-       return Utils.parseItemsList(balbla.replaceAll("(?m)^[ \t]*\r?\n", "").trim());
+    private void generateData(){
+        new DownloadItemsList().execute("");
+       ///return Utils.parseItemsList(balbla.replaceAll("(?m)^[ \t]*\r?\n", "").trim());
+    }
+
+    private class DownloadItemsList extends AsyncTask {
+
+        protected Object doInBackground(Object[] urls) {
+            Log.d("AAAAAAAAAAAAAAAAAAAA", "doInBackground");
+            String balbla = Utils.getDataFromUrl(Utils.GET_ITEMS_LIST);
+            //"[   {     \"id\": \"123\",     \"name\": \"קוטג תנובה 5%\",     \"expirationDate\": \"12/12/12\"   },   {     \"id\": \"432\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"05/12/15\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 27%\",     \"expirationDate\": \"28/12/15\"   },   {     \"id\": \"1233\",     \"name\": \"נוטלה\",     \"expirationDate\": \"30/12/16\"   },   {     \"id\": \"6812\",     \"name\": \"גבינת עמק 28%\",     \"expirationDate\": \"28/11/15\"   },   {     \"id\": \"434\",     \"name\": \"חלב תנובה 3%\",     \"expirationDate\": \"10/12/15\"   } ] "
+            Log.d("AAAAAAAAAAAAAAA", balbla);
+                    return balbla;
+        }
+
+        protected void onPostExecute(Object result) {
+            String bla = (String) result;
+            Log.d("AAAAAAAAA", "postExcute");
+            Log.d("AAAAAAAAA", bla);
+            mItemsFromNetwork = Utils.parseItemsList(bla.replaceAll("(?m)^[ \t]*\r?\n", "").trim());
+            mItemsListView.setAdapter(new MyArrayAdapter(getActivity().getApplicationContext(), mItemsFromNetwork));
+
+        }
+
     }
 
     @Override
@@ -64,4 +89,5 @@ Log.d("camera2basic", balbla);
         }
     }
 }
+
 
