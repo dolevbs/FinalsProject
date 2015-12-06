@@ -5,22 +5,22 @@ import java.sql.Date;
 
 public class UserProduct {
 
-    private User user;
-    private Product product;
+    private int id;
+    private String name;
     private String expirationDate;
 
-    public UserProduct(User user, Product product, String expirationDate) {
-        this.user = user;
-        this.product = product;
+    public UserProduct(int id, String name, String expirationDate) {
+        this.id = id;
+        this.name = name;
         this.expirationDate = expirationDate;
     }
 
-    public User getUser() {
-        return user;
+    public int getUser() {
+        return id;
     }
 
-    public Product getProduct() {
-        return product;
+    public String getProduct() {
+        return name;
     }
 
     public String getExpirationDate() {
