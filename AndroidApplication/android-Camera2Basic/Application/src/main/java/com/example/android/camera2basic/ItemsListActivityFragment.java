@@ -3,6 +3,7 @@ package com.example.android.camera2basic;
 import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.soundcloud.android.crop.Crop;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -45,7 +50,7 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
         view.findViewById(R.id.AddItemButton).setOnClickListener(this);
     }
 
-    private void generateData(){
+    public void generateData(){
         new DownloadItemsList().execute("");
        ///return Utils.parseItemsList(balbla.replaceAll("(?m)^[ \t]*\r?\n", "").trim());
     }
@@ -67,6 +72,43 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
             mItemsFromNetwork = Utils.parseItemsList(bla.replaceAll("(?m)^[ \t]*\r?\n", "").trim());
             mItemsListView.setAdapter(new MyArrayAdapter(getActivity().getApplicationContext(), mItemsFromNetwork));
 
+        }
+
+    }
+    private ItemRegister mItemToRegister;
+    private class AddProductTask extends AsyncTask {
+
+        protected Object doInBackground(Object[] barcodes) {
+
+            return Utils.addProduct(mItemToRegister.getBarcode(), mItemToRegister.getExpirationDateFile().getAbsolutePath());
+
+        }
+        protected void onPostExecute(Object result) {
+            String bla = (String) result;
+
+            Log.d("AAAAAAAAA", "postExcute");
+            Log.d("AAAAAAAAA", bla);
+            generateData();
+
+        }
+    }
+
+    //on ActivityResult method
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        Log.d("asdasdasd", "onActivityResult() called with: " + "requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], intent = [" + intent + "]");
+        if (requestCode == 3 ) {
+
+
+            final String barcode = intent.getStringExtra("barcode");
+            final String filePath = intent.getStringExtra("date");
+            mItemToRegister = new ItemRegister();
+            mItemToRegister.setBarcode(barcode);
+
+            if ( filePath != null ) {
+                mItemToRegister.setExpirationDateFile(new File(filePath));
+            }
+            new AddProductTask().execute();
         }
 
     }
