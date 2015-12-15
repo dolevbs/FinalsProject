@@ -93,14 +93,7 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
 
             }
             case R.id.finalAddItemButton: {
-                //new AddProductTask().execute();
-                Intent intent=new Intent();
-                intent.putExtra("barcode", mItemToRegister.getBarcode());
-                intent.putExtra("date", mItemToRegister.getExpirationDateFile().getAbsolutePath());
-
-                Log.i("AddItemFragment", mItemToRegister.toString());
-                getActivity().setResult(3, intent);
-                getActivity().finish();//finishing activity
+                new AddProductTask().execute();
                 break;
             }
         }
@@ -214,6 +207,19 @@ public class AddItemFragment extends Fragment  implements View.OnClickListener {
         protected Object doInBackground(Object[] barcodes) {
 
             return Utils.addProduct(mItemToRegister.getBarcode(), mItemToRegister.getExpirationDateFile().getAbsolutePath());
+
+        }
+        protected void onPostExecute(Object result) {
+
+            Log.d("AAAAAAAAA", "postExcute");
+            Log.d("AAAAAAAAA", "" + result);
+            Intent intent=new Intent();
+            intent.putExtra("barcode", mItemToRegister.getBarcode());
+            intent.putExtra("date", mItemToRegister.getExpirationDateFile().getAbsolutePath());
+
+            Log.i("AddItemFragment", mItemToRegister.toString());
+            getActivity().setResult(3, intent);
+            getActivity().finish();//finishing activity
 
         }
     }

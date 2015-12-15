@@ -40,6 +40,7 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
+        Log.d("BBBBBBBBBB", "onViewCreated");
         this.generateData();
         ListView bla =(ListView) view.findViewById(R.id.itemsListView);
         mItemsListView = bla;
@@ -97,18 +98,9 @@ public class ItemsListActivityFragment extends Fragment  implements View.OnClick
 
         Log.d("asdasdasd", "onActivityResult() called with: " + "requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], intent = [" + intent + "]");
         if (requestCode == 3 ) {
-
-
-            final String barcode = intent.getStringExtra("barcode");
-            final String filePath = intent.getStringExtra("date");
-            mItemToRegister = new ItemRegister();
-            mItemToRegister.setBarcode(barcode);
-
-            if ( filePath != null ) {
-                mItemToRegister.setExpirationDateFile(new File(filePath));
-            }
-            new AddProductTask().execute();
+            //generateData();
         }
+        generateData();
 
     }
 

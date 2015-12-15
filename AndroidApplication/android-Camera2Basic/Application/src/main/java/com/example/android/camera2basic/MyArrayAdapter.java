@@ -2,6 +2,7 @@ package com.example.android.camera2basic;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.content.Context;
 import android.util.Log;
@@ -44,8 +45,11 @@ public class MyArrayAdapter extends ArrayAdapter<Item> {
             // 4. Set the text for textView
             Item curItem = itemsArrayList.get(position);
             Calendar today = Calendar.getInstance();
+            today.add(Calendar.DAY_OF_YEAR, -5);
             Log.i("as", today.toString());
-            if ( curItem.getExpirationDate().before(today.getTime())  ) {
+            Date bla = today.getTime();
+
+            if ( curItem.getExpirationDate().before(today.getTime()  )) {
                 rowView.setBackgroundColor(0xFFDD0029);
             }
             labelView.setText(curItem.getTitle());

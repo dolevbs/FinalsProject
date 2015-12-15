@@ -38,7 +38,7 @@ public class Utils {
 //    public static String GET_BARCODE = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp?action=getProduct&barcode=%s";
 //    public static String POST_ITEM = "http://192.168.2.14:8080/FinalProjectServer/newjsp.jsp";
 
-    private static String SERVER_TO_CONNECT = "192.168.1.23:8080";
+    private static String SERVER_TO_CONNECT = "10.0.0.6:8080";
     public static String GET_ITEMS_LIST = "http://" +  SERVER_TO_CONNECT +"/FinalProjectServer/newjsp.jsp?action=getUserList&id=1";
     public static String GET_BARCODE = "http://" +  SERVER_TO_CONNECT +"/FinalProjectServer/newjsp.jsp?action=getProduct&barcode=%s";
     public static String POST_ITEM = "http://" +  SERVER_TO_CONNECT +"/FinalProjectServer/newjsp.jsp";
@@ -150,7 +150,7 @@ public class Utils {
 
             DataOutputStream wr = new DataOutputStream (
                     httpUrlConnection.getOutputStream ());
-            String fileData = fileToBase64("/sdcard/finalpic2.jpg");
+            String fileData = fileToBase64(sourceFileUri);
             String DataToSend = "action=addUserProduct&id=1&barcode=" + URLEncoder.encode(barcode, "UTF-8") + "&image=" + URLEncoder.encode(fileData, "UTF-8");
 
             wr.writeBytes(DataToSend);
